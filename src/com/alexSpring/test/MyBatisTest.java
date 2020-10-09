@@ -63,7 +63,7 @@ public class MyBatisTest {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 
 		// SqlSession execute SQL defined in mapper
-		List<Customer> customers = sqlSession.selectList("com.alexSpring.po.Customer.findCustomerByName", "o");
+		List<Customer> customers = sqlSession.selectList("com.alexSpring.po.Customer.findCustomerByName", "o'");
 		for (Customer c : customers)
 			System.out.println(c.toString());
 

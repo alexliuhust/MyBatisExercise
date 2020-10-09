@@ -11,7 +11,9 @@
 	</select>
 	
 	<select id="findCustomerByName" parameterType="String" resultType="com.alexSpring.po.Customer">
-		select * from t_customer where username like '%${value}%'
+		<!-- select * from t_customer where username like '%${value}%' -->
+		<!-- To avoid the illegal SQL injection issue from the line right above, we replace ${value} with concat()-->
+		select * from t_customer where username like concat('%', #{username}, '%')
 	</select>
 	
 	
