@@ -8,7 +8,7 @@ package com.alexSpring.po;
  */
 public class Customer {
 	private Integer id; // Primary Key
-	private String uername;
+	private String username;
 	private String jobs;
 	private String phone;
 
@@ -21,11 +21,11 @@ public class Customer {
 	}
 
 	public String getUername() {
-		return uername;
+		return username;
 	}
 
-	public void setUername(String uername) {
-		this.uername = uername;
+	public void setUername(String username) {
+		this.username = username;
 	}
 
 	public String getJobs() {
@@ -46,6 +46,6 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", uername=" + uername + ", jobs=" + jobs + ", phone=" + phone + "]";
+		return "Customer [id=" + id + ", uername=" + username + ", jobs=" + jobs + ", phone=" + phone + "]";
 	}
 }

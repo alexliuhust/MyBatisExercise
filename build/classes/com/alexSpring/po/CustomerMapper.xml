@@ -5,7 +5,16 @@
 
 
 <mapper namespace="com.alexSpring.po.Customer">
+
 	<select id="findCustomerById" parameterType="Integer" resultType="com.alexSpring.po.Customer">
 		select * from t_customer where id = #{id}
 	</select>
+	
+	<select id="findCustomerByName" parameterType="String" resultType="com.alexSpring.po.Customer">
+		select * from t_customer where username like '%${value}%'
+	</select>
+	
+	
+	
+	
 </mapper>
