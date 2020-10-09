@@ -16,6 +16,18 @@
 		select * from t_customer where username like concat('%', #{username}, '%')
 	</select>
 	
+	<insert id="addCustomer" parameterType="com.alexSpring.po.Customer">
+		insert into t_customer(username, jobs, phone) values(#{username},#{jobs},#{phone})
+	</insert>
+	
+	<update id="updateCustomerById" parameterType="com.alexSpring.po.Customer">
+		update t_customer set username = #{username}, jobs = #{jobs}, phone = #{phone} where id = #{id}
+	</update>
+	
+	<delete id="deleteCustomerById" parameterType="Integer">
+		delete from t_customer where id = #{id}
+	</delete>
+	
 	
 	
 	
