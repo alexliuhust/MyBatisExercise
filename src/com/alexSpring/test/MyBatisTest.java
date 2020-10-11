@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
 import com.alexSpring.po.Customer;
+import com.alexSpring.utils.MyBatisUtils;
 
 /**
  * Beginner Program Test Class
@@ -26,15 +27,8 @@ public class MyBatisTest {
 	 */
 	@Test
 	public void findCustomerByIdTest() throws Exception {
-		// Read Config File
-		String resource = "MyBatis-configure.xml";
-		InputStream inputStream = Resources.getResourceAsStream(resource);
-
-		// Build SqlSessionFactory based on the config file
-		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-
-		// Build SqlSession from SqlSessionFactory
-		SqlSession sqlSession = sqlSessionFactory.openSession();
+		// Build SqlSession from MyBatisUtils
+		SqlSession sqlSession = MyBatisUtils.getSession();
 
 		// SqlSession execute SQL defined in mapper
 		Customer customer = sqlSession.selectOne("com.alexSpring.po.Customer.findCustomerById", 2);
