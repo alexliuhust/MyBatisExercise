@@ -6,6 +6,13 @@
 
 <configuration>
 	<properties resource="db.properties"></properties>
+	
+	<!-- <settings>
+		Open secondary cache
+		Also, need to open secondary cache in CustomerMapper.xml
+		<setting name="cacheEnabled" value="true"></setting>
+	</settings> -->
+	
 	<environments default="mysql">
 		<environment id="mysql">
 			<transactionManager type="JDBC" />

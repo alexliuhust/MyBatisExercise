@@ -1,12 +1,14 @@
 package com.alexSpring.po;
 
+import java.io.Serializable;
+
 /**
  * Persistent Class -- Customer
  * 
  * @author liu.zehu
  *
  */
-public class Customer {
+public class Customer implements Serializable {
 	private Integer id; // Primary Key
 	private String username;
 	private String jobs;

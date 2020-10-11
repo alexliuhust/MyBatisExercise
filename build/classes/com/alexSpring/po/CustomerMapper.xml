@@ -6,6 +6,8 @@
 
 <mapper namespace="com.alexSpring.po.Customer">
 
+	<!-- <cache></cache> -->
+
 	<select id="findCustomerById" parameterType="Integer" resultType="com.alexSpring.po.Customer">
 		select * from t_customer where id = #{id}
 	</select>
