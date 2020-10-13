@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
 import com.alexSpring.po.Customer;
+import com.alexSpring.po.User;
 import com.alexSpring.utils.MyBatisUtils;
 
 /**
@@ -92,18 +93,10 @@ public class MyBatisTest {
 	 */
 	@Test
 	public void findCustomerByIdNameTest() throws Exception {
-		// Read Config File
-		String resource = "MyBatis-configure.xml";
-		InputStream inputStream = Resources.getResourceAsStream(resource);
-
-		// Build SqlSessionFactory based on the config file
-		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-
-		// Build SqlSession from SqlSessionFactory
-		SqlSession sqlSession = sqlSessionFactory.openSession();
+		SqlSession sqlSession = MyBatisUtils.getSession();
 
 		// SqlSession execute SQL defined in mapper
-		List<Customer> customers = sqlSession.selectList("com.alexSpring.po.Customer.findCustomerByName", "o'");
+		List<Customer> customers = sqlSession.selectList("com.alexSpring.po.Customer.findCustomerByName", "1");
 		for (Customer c : customers)
 			System.out.println(c.toString());
 
@@ -118,23 +111,15 @@ public class MyBatisTest {
 	 */
 	@Test
 	public void addCustomerTest() throws Exception {
-		// Read Config File
-		String resource = "MyBatis-configure.xml";
-		InputStream inputStream = Resources.getResourceAsStream(resource);
-
-		// Build SqlSessionFactory based on the config file
-		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-
-		// Build SqlSession from SqlSessionFactory
-		SqlSession sqlSession = sqlSessionFactory.openSession();
+		SqlSession sqlSession = MyBatisUtils.getSession();
 
 		// SqlSession execute SQL defined in mapper
-		Customer customer = new Customer("Mary", "lawyer", "16829462718");
 		Customer customer1 = new Customer("1", "1", "1");
 		int num = sqlSession.insert("com.alexSpring.po.Customer.addCustomer", customer1);
 
 		if (num > 0) {
 			System.out.println("Successfully inserted " + num + "row(s)!");
+			System.out.println(customer1.getId());
 		} else {
 			System.out.println("Failed to insert...");
 		}
@@ -153,15 +138,7 @@ public class MyBatisTest {
 	 */
 	@Test
 	public void updateCustomerByIdTest() throws Exception {
-		// Read Config File
-		String resource = "MyBatis-configure.xml";
-		InputStream inputStream = Resources.getResourceAsStream(resource);
-
-		// Build SqlSessionFactory based on the config file
-		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-
-		// Build SqlSession from SqlSessionFactory
-		SqlSession sqlSession = sqlSessionFactory.openSession();
+		SqlSession sqlSession = MyBatisUtils.getSession();
 
 		// SqlSession execute SQL defined in mapper
 		Customer customer = new Customer(2, "Thomas", "teacher", "15300002729");
@@ -186,15 +163,7 @@ public class MyBatisTest {
 	 */
 	@Test
 	public void deleteCustomerByIdTest() throws Exception {
-		// Read Config File
-		String resource = "MyBatis-configure.xml";
-		InputStream inputStream = Resources.getResourceAsStream(resource);
-
-		// Build SqlSessionFactory based on the config file
-		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-
-		// Build SqlSession from SqlSessionFactory
-		SqlSession sqlSession = sqlSessionFactory.openSession();
+		SqlSession sqlSession = MyBatisUtils.getSession();
 
 		// SqlSession execute SQL defined in mapper
 		int num = sqlSession.update("com.alexSpring.po.Customer.deleteCustomerById", 6);
@@ -209,6 +178,25 @@ public class MyBatisTest {
 		// Close SqlSession
 		sqlSession.close();
 
+	}
+	
+	/**
+	 * Find All Users (Result Map)
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void findAllUsersTest() throws Exception {
+		SqlSession sqlSession = MyBatisUtils.getSession();
+
+		// SqlSession execute SQL defined in mapper
+		List<User> users = sqlSession.selectList("com.alexSpring.po.User.findAllUsers");
+		
+		for (User u : users)
+			System.out.println(u.toString());
+
+		// Close SqlSession
+		sqlSession.close();
 	}
 
 //	public static void main(String[] args) {

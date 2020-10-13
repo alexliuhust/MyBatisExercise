@@ -28,6 +28,7 @@
 	
 	<mappers>
 		<mapper resource="com/alexSpring/po/CustomerMapper.xml" />
+		<mapper resource="com/alexSpring/po/UserMapper.xml" />
 	</mappers>
 	
 </configuration>

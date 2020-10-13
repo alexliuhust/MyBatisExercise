@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.alexSpring.po.User">
+
+	<!-- <cache></cache> -->
+	
+	<!-- Define common sql fragment to avoid duplicated codes -->
+	<sql id="customerColumn">id, username, jobs, phone</sql>
+	
+	<resultMap type="com.alexSpring.po.User" id="resultMap">
+		<id property="id" column="t_id"></id>
+		<result property="name" column="t_name"></result>
+		<result property="age" column="t_age"></result>
+		
+	</resultMap>
+	
+	<select id="findAllUsers" resultMap="resultMap">
+		select * from t_user
+		
+	</select>
+	
+	
+</mapper>
