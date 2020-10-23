@@ -88,7 +88,22 @@ public class MyBatisTest {
 			System.out.println(c);
 		}
 		session.close();
-		
+	}
+	
+	/**
+	 * Find customers by name
+	 * 
+	 */
+	@Test 
+	public void findCustomersByNameTest() {
+		SqlSession session = MyBatisUtils.getSession();
+		Customer customer = new Customer();
+		customer.setUsername("m");
+		List<Customer> customers = session.selectList("com.alexSpring.mapper.CustomerMapper.findCustomerByName", customer);
+		for (Customer c : customers) {
+			System.out.println(c);
+		}
+		session.close();
 	}
 	
 	
