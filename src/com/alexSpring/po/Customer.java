@@ -41,11 +41,11 @@ public class Customer implements Serializable {
 		this.id = id;
 	}
 
-	public String getUername() {
+	public String getUsername() {
 		return username;
 	}
 
-	public void setUername(String username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
 
@@ -67,6 +67,6 @@ public class Customer implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", uername=" + username + ", jobs=" + jobs + ", phone=" + phone + "]";
+		return "Customer [id=" + id + ", username=" + username + ", jobs=" + jobs + ", phone=" + phone + "]";
 	}
 }

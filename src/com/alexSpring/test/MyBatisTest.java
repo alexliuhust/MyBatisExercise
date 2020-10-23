@@ -10,7 +10,6 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
 import com.alexSpring.po.Customer;
-import com.alexSpring.po.User;
 import com.alexSpring.utils.MyBatisUtils;
 
 /**
@@ -20,183 +19,41 @@ import com.alexSpring.utils.MyBatisUtils;
  *
  */
 public class MyBatisTest {
+
 	/**
-	 * primary cache test 
-	 * cache in SqlSession and open by default
+	 * Find customers by name and jobs (composite search)
 	 * 
-	 * @throws Exception
 	 */
 	@Test
-	public void cacheOneTest() throws Exception {
-		SqlSession sqlSession = MyBatisUtils.getSession();
-
-		// The first-time search
-		Customer customer = sqlSession.selectOne("com.alexSpring.po.Customer.findCustomerById", 2);
-		System.out.println(customer.toString());
-
-		// Commit the primary cache
-		// sqlSession.commit();
-
-		// If without commit, the second-time search will access the primary cache,
-		// e.i. there are two results but from one-time query
-		customer = sqlSession.selectOne("com.alexSpring.po.Customer.findCustomerById", 2);
-		System.out.println(customer.toString());
-
-		sqlSession.close();
-	}
-
-	/**
-	 * secondary cache test 
-	 * cache in SqlSessionFactory and need to open manually
-	 * The query object of the secondary cache needs to implement the serialization interface.
-	 * @throws Exception
-	 */
-	@Test
-	public void cacheTwoTest() throws Exception {
-		// The first-time search
-		SqlSession sqlSession = MyBatisUtils.getSession();
-		Customer customer = sqlSession.selectOne("com.alexSpring.po.Customer.findCustomerById", 2);
-		System.out.println(customer.toString());
-		sqlSession.close();
-		
-		// The second-time search
-		// Since the secondary cache has opened, this sqlSession is a new session
-		sqlSession = MyBatisUtils.getSession();
-		customer = sqlSession.selectOne("com.alexSpring.po.Customer.findCustomerById", 2);
-		System.out.println(customer.toString());
-		sqlSession.close();
-				
-	}
-
-	/**
-	 * Find Customer By Id
-	 * 
-	 * @throws Exception
-	 */
-	@Test
-	public void findCustomerByIdTest() throws Exception {
-		// Build SqlSession from MyBatisUtils
-		SqlSession sqlSession = MyBatisUtils.getSession();
-		
-		// SqlSession execute SQL defined in mapper
-		Customer customer = sqlSession.selectOne("com.alexSpring.po.Customer.findCustomerById", 2);
-		System.out.println(customer.toString());
-
-		// Close SqlSession
-		sqlSession.close();
-	}
-
-	/**
-	 * Find Customer By user name
-	 * 
-	 * @throws Exception
-	 */
-	@Test
-	public void findCustomerByIdNameTest() throws Exception {
-		SqlSession sqlSession = MyBatisUtils.getSession();
-
-		// SqlSession execute SQL defined in mapper
-		List<Customer> customers = sqlSession.selectList("com.alexSpring.po.Customer.findCustomerByName", "1");
-		for (Customer c : customers)
-			System.out.println(c.toString());
-
-		// Close SqlSession
-		sqlSession.close();
-	}
-
-	/**
-	 * Add Customer
-	 * 
-	 * @throws Exception
-	 */
-	@Test
-	public void addCustomerTest() throws Exception {
-		SqlSession sqlSession = MyBatisUtils.getSession();
-
-		// SqlSession execute SQL defined in mapper
-		Customer customer1 = new Customer("1", "1", "1");
-		int num = sqlSession.insert("com.alexSpring.po.Customer.addCustomer", customer1);
-
-		if (num > 0) {
-			System.out.println("Successfully inserted " + num + "row(s)!");
-			System.out.println(customer1.getId());
-		} else {
-			System.out.println("Failed to insert...");
+	public void findCustomerByNameAndJobsTest() {
+		SqlSession session = MyBatisUtils.getSession();
+		Customer customer = new Customer();
+//		customer.setUsername("Jack");
+//		customer.setJobs("worker");
+		List<Customer> customers = session.selectList("com.alexSpring.mapper.CustomerMapper.findCustomerByNameAndJobs",
+				customer);
+		for (Customer c : customers) {
+			System.out.println(c);
 		}
-
-		// insert, delete and update process all need sqlSession.commit()
-		sqlSession.commit();
-
-		// Close SqlSession
-		sqlSession.close();
-	}
-
-	/**
-	 * Update Customer By Id
-	 * 
-	 * @throws Exception
-	 */
-	@Test
-	public void updateCustomerByIdTest() throws Exception {
-		SqlSession sqlSession = MyBatisUtils.getSession();
-
-		// SqlSession execute SQL defined in mapper
-		Customer customer = new Customer(2, "Thomas", "teacher", "15300002729");
-		int num = sqlSession.update("com.alexSpring.po.Customer.updateCustomerById", customer);
-		if (num > 0) {
-			System.out.println("Successfully updated " + num + "row(s)!");
-		} else {
-			System.out.println("Failed to update...");
-		}
-
-		// insert, delete and update process all need sqlSession.commit()
-		sqlSession.commit();
-
-		// Close SqlSession
-		sqlSession.close();
-	}
-
-	/**
-	 * Delete Customer By Id
-	 * 
-	 * @throws Exception
-	 */
-	@Test
-	public void deleteCustomerByIdTest() throws Exception {
-		SqlSession sqlSession = MyBatisUtils.getSession();
-
-		// SqlSession execute SQL defined in mapper
-		int num = sqlSession.update("com.alexSpring.po.Customer.deleteCustomerById", 6);
-		if (num > 0) {
-			System.out.println("Successfully deleted " + num + "row(s)!");
-		} else {
-			System.out.println("Failed to delete...");
-		}
-		// insert, delete and update process all need sqlSession.commit()
-		sqlSession.commit();
-
-		// Close SqlSession
-		sqlSession.close();
-
+		session.close();
 	}
 	
 	/**
-	 * Find All Users (Result Map)
+	 * Find customers by name or jobs (composite search)
 	 * 
-	 * @throws Exception
 	 */
 	@Test
-	public void findAllUsersTest() throws Exception {
-		SqlSession sqlSession = MyBatisUtils.getSession();
-
-		// SqlSession execute SQL defined in mapper
-		List<User> users = sqlSession.selectList("com.alexSpring.po.User.findAllUsers");
-		
-		for (User u : users)
-			System.out.println(u.toString());
-
-		// Close SqlSession
-		sqlSession.close();
+	public void findCustomerByNameOrJobsTest() {
+		SqlSession session = MyBatisUtils.getSession();
+		Customer customer = new Customer();
+//		customer.setUsername("Jack");
+//		customer.setJobs("worker");
+		List<Customer> customers = session.selectList("com.alexSpring.mapper.CustomerMapper.findCustomerByNameOrJobs",
+				customer);
+		for (Customer c : customers) {
+			System.out.println(c);
+		}
+		session.close();
 	}
 
 //	public static void main(String[] args) {
