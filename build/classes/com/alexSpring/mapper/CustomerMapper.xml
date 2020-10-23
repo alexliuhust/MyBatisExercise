@@ -9,37 +9,88 @@
 	<select id="findCustomerByNameAndJobs"
 		parameterType="com.alexSpring.po.Customer"
 		resultType="com.alexSpring.po.Customer">
-		select * from t_customer where 1 = 1 
-		<if test="username != null and username != '' ">
-			and username like concat('%',#{username},'%')
-		</if>
-		<if test="jobs != null and jobs != '' ">
-			and jobs = #{jobs}
-		</if>
+		select * from t_customer
+		<where>
+			<if test="username != null and username != '' ">
+				and username like concat('%',#{username},'%')
+			</if>
+			<if test="jobs != null and jobs != '' ">
+				and jobs = #{jobs}
+			</if>
+		</where>
 	</select>
-	
+
 	<!-- <choose> (<when> <otherwise>) Elements -->
 	<select id="findCustomerByNameOrJobs"
 		parameterType="com.alexSpring.po.Customer"
 		resultType="com.alexSpring.po.Customer">
-		select * from t_customer where 1 = 1 
-		<choose>
-			<when test="username != null and username != '' ">
-				and username like concat('%',#{username},'%')
-			</when>
-			<when test="jobs != null and jobs != '' ">
-				and jobs = #{jobs}
-			</when>
-			<otherwise>
-				and phone is not null
-			</otherwise>
-			
-		</choose>
-		
+		select * from t_customer
+		<trim prefix="where" prefixOverrides="and">
+			<choose>
+				<when test="username != null and username != '' ">
+					and username like concat('%',#{username},'%')
+				</when>
+				<when test="jobs != null and jobs != '' ">
+					and jobs = #{jobs}
+				</when>
+				<otherwise>
+					and phone is not null
+				</otherwise>
+
+			</choose>
+		</trim>
 	</select>
 
+	<!-- <set> Element -->
+	<!-- <set> will remove the extra comma -->
+	<update id="updateCustomer"
+		parameterType="com.alexSpring.po.Customer">
+		update t_customer
+		<set>
+			<if test="username != null and username != '' ">
+				username = #{username},
+			</if>
+			<if test="jobs != null and jobs != '' ">
+				jobs = #{jobs},
+			</if>
+			<if test="phone != null and phone != '' ">
+				phone = #{phone},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<!-- <foreach> Element -->
+	<select id="findCustomersByIds" parameterType="List"
+		resultType="com.alexSpring.po.Customer">
+		select * from t_customer where id in
+		<foreach item="id" index="index" collection="list" 
+			open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
 
 
 
 
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
