@@ -7,11 +7,10 @@
 <configuration>
 	<properties resource="db.properties"></properties>
 	
-	<!-- <settings>
-		Open secondary cache
-		Also, need to open secondary cache in CustomerMapper.xml
-		<setting name="cacheEnabled" value="true"></setting>
-	</settings> -->
+	<settings>
+		<setting name="lazyLoadingEnabled" value="true"></setting>
+		<setting name="aggressiveLazyLoading" value="false"></setting>
+	</settings>
 	
 	<typeAliases>
 		<package name="com.alexSpring.po"/>

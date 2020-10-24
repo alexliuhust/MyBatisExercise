@@ -21,7 +21,9 @@ public class MyBatisAssociatedTest {
 	public void findPersonByIdTest() {
 		SqlSession session = MyBatisUtils.getSession();
 		Person person = session.selectOne("com.alexSpring.mapper.PersonMapper.findPersonById", 1);
-		System.out.println(person);
+		// System.out.println(person);
+		// Lazy Loading Test
+		System.out.println(person.getName());
 		session.close();
 	}
 	
