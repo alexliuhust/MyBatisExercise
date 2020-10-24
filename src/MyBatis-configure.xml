@@ -13,6 +13,10 @@
 		<setting name="cacheEnabled" value="true"></setting>
 	</settings> -->
 	
+	<typeAliases>
+		<package name="com.alexSpring.po"/>
+	</typeAliases>
+	
 	<environments default="mysql">
 		<environment id="mysql">
 			<transactionManager type="JDBC" />
@@ -27,7 +31,8 @@
 	</environments>
 	
 	<mappers>
-		<mapper resource="com/alexSpring/mapper/CustomerMapper.xml" />
+		<mapper resource="com/alexSpring/mapper/IdCardMapper.xml" />
+		<mapper resource="com/alexSpring/mapper/PersonMapper.xml" />
 	</mappers>
 	
 </configuration>
