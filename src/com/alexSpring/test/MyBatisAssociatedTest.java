@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
 import com.alexSpring.po.Person;
+import com.alexSpring.po.User;
 import com.alexSpring.utils.MyBatisUtils;
 
 /**
@@ -38,7 +39,16 @@ public class MyBatisAssociatedTest {
 		session.close();
 	}
 
-	
+	/**
+	 * One to many 
+	 */
+	@Test
+	public void findUserByIdTest() {
+		SqlSession session = MyBatisUtils.getSession();
+		User user = session.selectOne("com.alexSpring.mapper.UserMapper.findUserWithOrders", 1);
+		System.out.println(user);
+		session.close();
+	}
 	
 	
 	
