@@ -10,13 +10,8 @@
 		<package name="com.alexSpring.po"/>
 	</typeAliases>
 	
-	
 	<mappers>
-		<mapper resource="com/alexSpring/mapper/IdCardMapper.xml" />
-		<mapper resource="com/alexSpring/mapper/PersonMapper.xml" />
-		<mapper resource="com/alexSpring/mapper/UserMapper.xml" />
-		<mapper resource="com/alexSpring/mapper/ProductMapper.xml" />
-		<mapper resource="com/alexSpring/mapper/OrdersMapper.xml" />
+		<mapper resource="com/alexSpring/po/CusomerMapper.xml" />
 	</mappers>
 	
 </configuration>
