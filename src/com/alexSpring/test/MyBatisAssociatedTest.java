@@ -3,6 +3,7 @@ package com.alexSpring.test;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
+import com.alexSpring.po.Orders;
 import com.alexSpring.po.Person;
 import com.alexSpring.po.User;
 import com.alexSpring.utils.MyBatisUtils;
@@ -16,7 +17,7 @@ import com.alexSpring.utils.MyBatisUtils;
 public class MyBatisAssociatedTest {
 	
 	/**
-	 * Nested Query
+	 * One to one Nested Query
 	 */
 	@Test
 	public void findPersonByIdTest() {
@@ -29,7 +30,7 @@ public class MyBatisAssociatedTest {
 	}
 	
 	/**
-	 * Nested Result
+	 * One to one Nested Result
 	 */
 	@Test
 	public void findPersonById_2Test() {
@@ -40,7 +41,7 @@ public class MyBatisAssociatedTest {
 	}
 
 	/**
-	 * One to many 
+	 * One to many Nested Result
 	 */
 	@Test
 	public void findUserByIdTest() {
@@ -50,6 +51,27 @@ public class MyBatisAssociatedTest {
 		session.close();
 	}
 	
+	/**
+	 * Many to many Nested Query
+	 */
+	@Test
+	public void findOrdersWithProductTest() {
+		SqlSession session = MyBatisUtils.getSession();
+		Orders o = session.selectOne("com.alexSpring.mapper.OrdersMapper.findOrdersWithProduct", 3);
+		System.out.println(o);
+		session.close();
+	}
+	
+	/**
+	 * Many to many Nested Result
+	 */
+	@Test
+	public void findOrdersWithProductTest2() {
+		SqlSession session = MyBatisUtils.getSession();
+		Orders o = session.selectOne("com.alexSpring.mapper.OrdersMapper.findOrdersWithProduct2", 1);
+		System.out.println(o);
+		session.close();
+	}
 	
 	
 	
