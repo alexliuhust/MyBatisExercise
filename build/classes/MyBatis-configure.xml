@@ -12,6 +12,7 @@
 	
 	<mappers>
 		<mapper resource="com/alexSpring/po/CusomerMapper.xml" />
+		<mapper resource="com/alexSpring/mapper/CusomerMapper.xml" />
 	</mappers>
 	
 </configuration>

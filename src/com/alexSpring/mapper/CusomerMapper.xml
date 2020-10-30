@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<!-- 
+Specifications of mapper agent development.
+1) The names of interface file and .xml file must be the same:
+		CustomerMapper.java, CusomerMapper.xml
+2) The namespace of .xml file must be the same as the classpath of the interface file, e.i. the two files must be in the same package:
+		com.alexSpring.mapper.CustomerMapper, com.alexSpring.mapper.CustomerMapper
+3) The method names in the interface must be the same as the ids of the sql in the .xml:
+		findCustomerById(), id="findCustomerById"
+4) The parameter types in the method of the interface must be the same as the parameterType of the corresponding sql in the .xml:
+		(Integer id), parameterType="Integer"
+5) The return type in the method of the interface must be the same as the resultType of the corresponding sql in the .xml:
+		Customer, Customer
+ -->
+
+
+<mapper namespace="com.alexSpring.mapper.CustomerMapper">
+    <!--Find customer by id -->
+    <select id="findCustomerById" parameterType="Integer"
+             resultType="Customer">
+        select * from t_customer where id = #{id}
+    </select>
+</mapper>
