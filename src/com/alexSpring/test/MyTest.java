@@ -13,13 +13,13 @@ import com.alexSpring.po.Customer;
  * @author liu.zehu
  *
  */
-public class DaoTest {
+public class MyTest {
 	
 	/**
 	 * Traditional Dao Test
 	 */
 	@Test
-	public void findCustomerByIdDaoTest() {
+	public void findCustomerById_DaoTest() {
 		ApplicationContext act = new ClassPathXmlApplicationContext("applicationContext.xml");
 		// CustomerDao customerDao = (CustomerDao) act.getBean("customerDao");
 		// Another way to obtain customerDao. No need to cast.
@@ -29,7 +29,7 @@ public class DaoTest {
 	}
 	
 	/**
-	 * Mapper Interface Test
+	 * Mapper Interface - MapperFactoryBean and MapperScannerConfigurer Test
 	 */
 	@Test
 	public void findCustomerByIdMapperInterfaceTest() {
@@ -38,4 +38,33 @@ public class DaoTest {
 		Customer c = customerMapper.findCustomerById(2);
 		System.out.println(c);
 	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -59,13 +59,16 @@
 	</bean>
 	
 	
-	<!-- Configure Mapper Factory Bean -->
-	<bean id="customerMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	<!-- Mapper Agent Development(based on MapperFactoryBean) -->
+	<!-- <bean id="customerMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface" value="com.alexSpring.mapper.CustomerMapper"/>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
-	</bean>
-
-
+	</bean> -->
+	
+	<!-- Mapper Agent Development(based on MapperScannerConfigurer) -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+         <property name="basePackage" value="com.alexSpring.mapper" />
+    </bean>
 
 </beans>
 
